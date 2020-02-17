@@ -27,25 +27,44 @@ class App extends React.Component {
       todo: ""
     });
   };
-  onDelete = ident => {
+  onDelete = id => {
     this.setState({
-      todos: this.state.todos.filter(el => el !== ident)
+      todos: this.state.todos.filter(el => el.id !== id)
+    });
+  };
+
+  onCheck = id => {
+    this.setState({
+      todos: this.state.todos.map(todo =>
+        todo.id === id ? { ...todo, isCompleted: !todo.isCompleted } : todo
+      )
     });
   };
   render() {
     return (
       <div className="App">
-        <i className="fas fa-list" />
-        <span> To-Do App !</span>
-        <br />
-        <span>Add new To-Do</span>
-        <br />
-        <Form
-          val={this.state.todo}
-          changeHandler={this.changeHandler}
-          onSubmit={this.addTodo}
+        <div className="main-head">
+          <div className="head">
+            <i className="fas fa-list" />
+            <span style={{ fontSize: "40px" }}> To-Do App !</span>
+            <br />
+            <br />
+            <span style={{ fontSize: "20px" }}>Add new To-Do</span>
+            <br />
+          </div>
+          <Form
+            val={this.state.todo}
+            changeHandler={this.changeHandler}
+            onSubmit={this.addTodo}
+          />
+        </div>
+        <div className="division">Let's get some work done !</div>
+        <hr />
+        <TodoList
+          todos={this.state.todos}
+          onDelete={this.onDelete}
+          onCheck={this.onCheck}
         />
-        <TodoList todos={this.state.todos} onDelete={this.onDelete} />
       </div>
     );
   }

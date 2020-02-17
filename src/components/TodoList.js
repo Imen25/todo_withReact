@@ -3,9 +3,16 @@ import Todo from "./Todo";
 
 const TodoList = props => {
   return (
-    <div>
-      {props.todos.map(todo => (
-        <Todo key={todo.id} todo={todo.todo} onDelete={props.onDelete} />
+    <div className="list">
+      {props.todos.map((todo, i) => (
+        <Todo
+          key={i}
+          id={todo.id}
+          todo={todo.todo}
+          isCompleted={todo.isCompleted}
+          onDelete={props.onDelete}
+          onCheck={props.onCheck}
+        />
       ))}
     </div>
   );
